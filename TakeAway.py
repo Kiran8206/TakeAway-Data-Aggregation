@@ -27,4 +27,4 @@ netMerch_udf = F.udf(lambda a, b : netMerchCal(a, b), DoubleType())
 df3 = df2.withColumn("netMerch", netMerch_udf("productType", "grossMerchandiseValueEur"))
 
 #Aggregating the Net merchandise values of all products for an orderID 
-df3.groupBy("orderId").agg(F.sum("netMerch")).show(truncate = False)
+df3.groupBy("orderId").agg(F.sum("netMerch")).write.parquet("/output/result.parquet")
